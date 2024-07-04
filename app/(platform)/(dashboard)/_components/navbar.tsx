@@ -14,11 +14,11 @@ export function Navbar() {
 
         <div>
           {/*Desktop Create Button*/}
-          <Button size="sm" className="hidden h-auto rounded-sm px-2 py-1.5 md:block">
+          <Button variant="primary" size="sm" className="hidden h-auto rounded-sm px-2 py-1.5 md:block">
             Create
           </Button>
           {/*Mobile Create Button*/}
-          <Button size="sm" className="block rounded-sm md:hidden">
+          <Button variant="primary" size="sm" className="block rounded-sm md:hidden">
             <PlusIcon className="size-4" />
           </Button>
         </div>

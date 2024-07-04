@@ -2,11 +2,15 @@ import { OrganizationSwitcher, UserButton } from "@clerk/nextjs";
 import { PlusIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/logo";
+import { MobileSidebar } from "./mobile-sidebar";
 
 export function Navbar() {
   return (
     <header className="fixed top-0 z-50 flex h-14 w-full items-center border-b bg-white px-4 shadow-sm">
-      {/*TODO: Mobile sidebar*/}
+      {/*Burger*/}
+      <MobileSidebar />
+
+      {/*Left Side*/}
       <div className="flex items-center gap-x-4">
         <div className="hidden md:flex">
           <Logo />
@@ -24,6 +28,7 @@ export function Navbar() {
         </div>
       </div>
 
+      {/*Right Side*/}
       <div className="ml-auto flex h-full items-center gap-x-2">
         <OrganizationSwitcher
           hidePersonal

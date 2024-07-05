@@ -7,7 +7,7 @@ export default function OrganizationIdLayout({ children }: { children: React.Rea
       {/*When orgId in url change, this component will set that org as the activeOrg*/}
       <OrgControl />
 
-      <main>{children}</main>
+      <main className="h-full w-full">{children}</main>
     </>
   );
 }

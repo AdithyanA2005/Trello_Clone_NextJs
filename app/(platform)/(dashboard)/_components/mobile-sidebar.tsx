@@ -21,7 +21,7 @@ export function MobileSidebar() {
     <>
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
         <SheetTrigger asChild>
-          <Button size="sm" variant="ghost" className="mr-2 block md:hidden">
+          <Button size="sm" variant="ghost" className="mr-2 block lg:hidden">
             <MenuIcon className="size-4" />
           </Button>
         </SheetTrigger>

@@ -9,7 +9,20 @@
   "printWidth": 120,
   "tabWidth": 2,
   "plugins": ["@trivago/prettier-plugin-sort-imports", "prettier-plugin-tailwindcss"],
-  "importOrder": ["^react","^next", "<THIRD_PARTY_MODULES>", "^@/components/ui/(.*)$", "^@/components/(.*)$", "^@/config/(.*)$", "^@/lib/(.*)$", "^@/types/(.*)$", "^[./]"],
+  "importOrder": [
+    "^react",
+    "^next",
+    "<THIRD_PARTY_MODULES>",
+    "^@/components/ui/(.*)$",
+    "^@/components/(.*)$",
+    "^@/hooks/(.*)$",
+    "^@/actions/(.*)$",
+    "^@/constants/(.*)$",
+    "^@/config/(.*)$",
+    "^@/lib/(.*)$",
+    "^@/types/(.*)$",
+    "^[./]"
+  ],
   "tailwindFunctions": ["cn"],
   "tailwindAttributes": ["containerClassName"]
 }

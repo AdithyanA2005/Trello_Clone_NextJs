@@ -2,6 +2,7 @@ import { OrganizationSwitcher, UserButton } from "@clerk/nextjs";
 import { PlusIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/logo";
+import { NewBoardFormPopover } from "@/components/new-board-form-popover";
 import { MobileSidebar } from "./mobile-sidebar";
 
 export function Navbar() {
@@ -18,13 +19,18 @@ export function Navbar() {
 
         <div>
           {/*Desktop Create Button*/}
-          <Button variant="primary" size="sm" className="hidden h-auto rounded-sm px-2 py-1.5 md:block">
-            Create
-          </Button>
+          <NewBoardFormPopover sideOffset={18} align="start">
+            <Button variant="primary" size="sm" className="hidden h-auto rounded-sm px-2 py-1.5 md:block">
+              Create
+            </Button>
+          </NewBoardFormPopover>
+
           {/*Mobile Create Button*/}
-          <Button variant="primary" size="sm" className="block rounded-sm md:hidden">
-            <PlusIcon className="size-4" />
-          </Button>
+          <NewBoardFormPopover sideOffset={5}>
+            <Button variant="primary" size="sm" className="block rounded-sm md:hidden">
+              <PlusIcon className="size-4" />
+            </Button>
+          </NewBoardFormPopover>
         </div>
       </div>
 

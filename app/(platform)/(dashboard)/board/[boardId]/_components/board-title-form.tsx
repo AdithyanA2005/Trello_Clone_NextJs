@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { Board } from "@prisma/client";
 import { toast } from "sonner";
+import { useEventListener, useOnClickOutside } from "usehooks-ts";
 import { Button } from "@/components/ui/button";
 import { FormInput } from "@/components/form/form-input";
 import useAction from "@/hooks/useAction";
@@ -61,6 +62,12 @@ export function BoardTitleForm({ board }: BoardTitleFormProps) {
   const onBlur = () => {
     formRef.current?.requestSubmit();
   };
+
+  // Disable editing by pressing `esc`
+  const onKeyDown = (e: KeyboardEvent) => {
+    if (e.key === "Escape") disableEditing();
+  };
+  useEventListener("keydown", onKeyDown);
 
   if (isEditing) {
     return (

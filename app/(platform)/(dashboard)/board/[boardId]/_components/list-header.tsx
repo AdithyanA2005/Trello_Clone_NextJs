@@ -3,10 +3,11 @@
 import { useRef, useState } from "react";
 import { List } from "@prisma/client";
 import { toast } from "sonner";
-import { useEventListener, useOnClickOutside } from "usehooks-ts";
+import { useEventListener } from "usehooks-ts";
 import { FormInput } from "@/components/form/form-input";
 import useAction from "@/hooks/useAction";
 import { updateList } from "@/actions/update-list";
+import { ListOptions } from "@/app/(platform)/(dashboard)/board/[boardId]/_components/list-options";
 
 interface ListHeaderProps {
   list: List;
@@ -46,7 +47,6 @@ export function ListHeader({ list }: ListHeaderProps) {
     if (title === list.title) return disableEditing();
     await execute({ id, title, boardId });
   };
-
   const onBlur = () => {
     formRef.current?.requestSubmit();
   };
@@ -81,6 +81,8 @@ export function ListHeader({ list }: ListHeaderProps) {
           {title}
         </h2>
       )}
+
+      <ListOptions list={list} />
     </div>
   );
 }

@@ -76,8 +76,13 @@ export function BoardTitleForm({ board }: BoardTitleFormProps) {
   }
 
   return (
-    <Button variant="transparent" className="h-auto w-auto p-1 px-2 text-lg font-bold" onClick={enableEditing}>
-      {title}
+    <Button
+      variant="transparent"
+      className="h-auto w-auto cursor-pointer p-1 px-2 text-lg font-bold"
+      onClick={enableEditing}
+      asChild
+    >
+      <h2>{title}</h2>
     </Button>
   );
 }

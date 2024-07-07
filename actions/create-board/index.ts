@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { auth } from "@clerk/nextjs/server";
 import { CreateBoardSchema } from "@/actions/create-board/schema";
-import { createSafeAction } from "@/lib/ create-safe-action";
+import { createSafeAction } from "@/lib/create-safe-action";
 import { prisma } from "@/lib/db";
 import { InputType, ReturnType } from "./types";
 

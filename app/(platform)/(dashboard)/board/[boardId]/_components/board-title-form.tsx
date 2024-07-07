@@ -27,6 +27,7 @@ export function BoardTitleForm({ board }: BoardTitleFormProps) {
 
   const [title, setTitle] = useState(board.title);
   const [isEditing, setIsEditing] = useState<boolean>(false);
+
   const disableEditing = () => setIsEditing(false);
   const enableEditing = () => {
     setIsEditing(true);

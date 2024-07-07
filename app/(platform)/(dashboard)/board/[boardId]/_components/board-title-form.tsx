@@ -49,17 +49,16 @@ export function BoardTitleForm({ board }: BoardTitleFormProps) {
 
   const onSubmit = async (formData: FormData) => {
     const title = formData.get("title") as string;
-    if (board.title !== title) {
-      await execute({
-        title,
-        id: board.id,
-      });
-    }
+    if (board.title == title) return disableEditing();
+
+    await execute({
+      title,
+      id: board.id,
+    });
   };
 
   const onBlur = () => {
     formRef.current?.requestSubmit();
-    disableEditing();
   };
 
   if (isEditing) {

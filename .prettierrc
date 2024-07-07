@@ -20,7 +20,8 @@
     "^@/constants/(.*)$",
     "^@/config/(.*)$",
     "^@/lib/(.*)$",
-    "^@/types/(.*)$",
+    "^@/types(.*)$",
+    "^@/(.*)$",
     "^[./]"
   ],
   "tailwindFunctions": ["cn"],

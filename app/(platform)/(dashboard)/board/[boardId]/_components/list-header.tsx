@@ -7,7 +7,7 @@ import { useEventListener } from "usehooks-ts";
 import { FormInput } from "@/components/form/form-input";
 import useAction from "@/hooks/useAction";
 import { updateList } from "@/actions/update-list";
-import { ListOptions } from "@/app/(platform)/(dashboard)/board/[boardId]/_components/list-options";
+import { ListOptions } from "./list-options";
 
 interface ListHeaderProps {
   list: List;

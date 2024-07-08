@@ -2,6 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { DragDropContext, Droppable, DropResult } from "@hello-pangea/dnd";
+import { toast } from "sonner";
+import useAction from "@/hooks/useAction";
+import { updateListOrder } from "@/actions/update-list-order";
 import { ListWithCards } from "@/types";
 import { ListForm } from "./list-form";
 import { ListItem } from "./list-item";
@@ -21,7 +24,13 @@ function reorder<T>(list: T[], srcIndex: number, destIndex: number) {
 export function ListContainer({ lists, boardId }: ListContainerProps) {
   const [orderedList, setOrderedList] = useState<ListWithCards[]>(lists);
 
-  const onDragEnd = (result: DropResult) => {
+  const { execute: executeUpdateListOrder } = useAction(updateListOrder, {
+    onError: (error) => {
+      toast.error(error);
+    },
+  });
+
+  const onDragEnd = async (result: DropResult) => {
     const { destination, source, type } = result;
 
     // Not dropped in a droppable
@@ -38,7 +47,12 @@ export function ListContainer({ lists, boardId }: ListContainerProps) {
 
       // Update the state with the new ordered list
       setOrderedList(reorderedList);
-      // TODO: Update in database
+
+      // Update in database
+      await executeUpdateListOrder({
+        boardId,
+        items: reorderedList,
+      });
       return;
     }
 

@@ -47,9 +47,6 @@ export function Navbar() {
                 height: 30,
                 width: 30,
               },
-              organizationSwitcherTriggerIcon: {
-                marginLeft: 12,
-              },
             },
           }}
         />

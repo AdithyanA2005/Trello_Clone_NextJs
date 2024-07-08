@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { DragDropContext, Droppable, DropResult } from "@hello-pangea/dnd";
 import { toast } from "sonner";
 import useAction from "@/hooks/useAction";
+import { updateCardOrder } from "@/actions/update-card-order";
 import { updateListOrder } from "@/actions/update-list-order";
 import { ListWithCards } from "@/types";
 import { ListForm } from "./list-form";
@@ -25,6 +26,11 @@ export function ListContainer({ lists, boardId }: ListContainerProps) {
   const [orderedList, setOrderedList] = useState<ListWithCards[]>(lists);
 
   const { execute: executeUpdateListOrder } = useAction(updateListOrder, {
+    onError: (error) => {
+      toast.error(error);
+    },
+  });
+  const { execute: executeUpdateCardOrder } = useAction(updateCardOrder, {
     onError: (error) => {
       toast.error(error);
     },
@@ -75,8 +81,12 @@ export function ListContainer({ lists, boardId }: ListContainerProps) {
         const reorderedCards = reorder(srcList.cards, source.index, destination.index);
         reorderedCards.forEach((card, index) => (card.position = index));
 
-        // Update the source list cards with reordered cards
+        // Update the state with reordered cards
         srcList.cards = reorderedCards;
+        setOrderedList(reorderedList);
+
+        // Update in database
+        await executeUpdateCardOrder({ items: reorderedCards, boardId });
       } else {
         // Remove the moved card from the source list
         const [movedCard] = srcList.cards.splice(source.index, 1);
@@ -90,12 +100,10 @@ export function ListContainer({ lists, boardId }: ListContainerProps) {
         // Update the position of the cards in the source and destination lists
         srcList.cards.forEach((card, index) => (card.position = index));
         destList.cards.forEach((card, index) => (card.position = index));
-      }
 
-      // Update the state with the new ordered list
-      setOrderedList(reorderedList);
-      // TODO: Update in database
-      return;
+        // Update dest list cards order in database
+        await executeUpdateCardOrder({ items: destList.cards, boardId });
+      }
     }
   };
 

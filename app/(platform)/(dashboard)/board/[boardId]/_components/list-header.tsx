@@ -11,9 +11,10 @@ import { ListOptions } from "@/app/(platform)/(dashboard)/board/[boardId]/_compo
 
 interface ListHeaderProps {
   list: List;
+  onAddCard: () => void;
 }
 
-export function ListHeader({ list }: ListHeaderProps) {
+export function ListHeader({ list, onAddCard }: ListHeaderProps) {
   const [title, setTitle] = useState(list.title);
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
@@ -82,7 +83,7 @@ export function ListHeader({ list }: ListHeaderProps) {
         </h2>
       )}
 
-      <ListOptions list={list} />
+      <ListOptions onAddCard={onAddCard} list={list} />
     </div>
   );
 }

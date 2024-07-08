@@ -14,9 +14,10 @@ import { deleteList } from "@/actions/delete-list";
 
 interface ListOptionsProps {
   list: List;
+  onAddCard: () => void;
 }
 
-export function ListOptions({ list }: ListOptionsProps) {
+export function ListOptions({ list, onAddCard }: ListOptionsProps) {
   const closeRef = useRef<HTMLButtonElement>(null);
 
   const { execute: executeDelete } = useAction(deleteList, {
@@ -65,6 +66,14 @@ export function ListOptions({ list }: ListOptionsProps) {
             <XIcon className="size-4" />
           </Button>
         </PopoverClose>
+
+        <Button
+          onClick={onAddCard}
+          className="h-auto w-full justify-start rounded-none p-2 px-5 text-sm font-normal"
+          variant="ghost"
+        >
+          Add Card
+        </Button>
 
         <form action={onCopy}>
           <input hidden readOnly id="id" name="id" value={list.id} />

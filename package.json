@@ -31,7 +31,8 @@
     "tailwindcss-animate": "^1.0.7",
     "unsplash-js": "^7.0.19",
     "usehooks-ts": "^3.1.0",
-    "zod": "^3.23.8"
+    "zod": "^3.23.8",
+    "zustand": "^4.5.4"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",

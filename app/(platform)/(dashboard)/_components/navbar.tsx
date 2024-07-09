@@ -7,7 +7,7 @@ import { MobileSidebar } from "./mobile-sidebar";
 
 export function Navbar() {
   return (
-    <header className="fixed top-0 z-50 flex h-14 w-full items-center border-b bg-white px-4 shadow-sm">
+    <header className="fixed top-0 z-50 flex h-12 w-full items-center border-b bg-white px-4 shadow-sm">
       {/*Burger*/}
       <MobileSidebar />
 

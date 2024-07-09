@@ -42,7 +42,7 @@ export default async function BoardIdLayout({ children, params }: { children: Re
     >
       <BoardNavbar board={board} />
       <div className="absolute inset-0 bg-black/10" />
-      <main className="relative h-full pt-28">{children}</main>
+      <main className="relative h-full pt-[100px]">{children}</main>
     </div>
   );
 }

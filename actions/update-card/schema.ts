@@ -7,8 +7,8 @@ export const UpdateCard = z.object({
         required_error: "Title is required",
         invalid_type_error: "Title is required",
       })
-      .min(3, {
-        message: "Title must be at least 3 characters long",
+      .min(1, {
+        message: "Title must be at least 1 characters long",
       }),
   ),
   description: z.optional(

@@ -7,6 +7,7 @@ import { NewBoardFormPopover } from "@/components/new-board-form-popover";
 import { MAX_FREE_BOARDS } from "@/constants/boards";
 import { prisma } from "@/lib/db";
 import { getUsedBoardCount } from "@/lib/org-limit";
+import { checkSubscription } from "@/lib/subscription";
 import { Hint } from "./hint";
 
 export async function BoardList() {
@@ -19,6 +20,7 @@ export async function BoardList() {
   });
 
   const usedBoardCount = await getUsedBoardCount();
+  const isPro = await checkSubscription();
 
   return (
     <div className="space-y-4">
@@ -45,7 +47,7 @@ export async function BoardList() {
             className="relative flex aspect-video h-full w-full flex-col items-center justify-center gap-y-1 rounded-sm bg-muted transition hover:opacity-75"
           >
             <p className="text-sm">Create new board</p>
-            <span className="text-xs">{MAX_FREE_BOARDS - usedBoardCount} remaining</span>
+            <span className="text-xs">{isPro ? "Unlimited" : `${MAX_FREE_BOARDS - usedBoardCount} remaining`}</span>
             <Hint
               description="Free Workspaces can have upto 5 open boards at a time. Upgrade to a paid plan to create more boards."
               sideOffset={40}

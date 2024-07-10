@@ -30,8 +30,17 @@ export const createBoard = createSafeAction(CreateBoardSchema, async (data: Inpu
   }
 
   // Check if the user has any unused boards left (pro has unlimited)
-  const canCreate = await hasUnusedBoard();
-  const isPro = await checkSubscription();
+  let canCreate, isPro;
+  try {
+    canCreate = await hasUnusedBoard();
+    isPro = await checkSubscription();
+  } catch {
+    return {
+      error: "Failed to check subscription status",
+    };
+  }
+
+  // Return an error if the user has reached the limit of free boards and is not on a pro plan
   if (!canCreate && !isPro) {
     return { error: "You have reached your limit of free boards. Please upgrade to create more." };
   }

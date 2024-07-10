@@ -31,7 +31,15 @@ export const deleteBoard = createSafeAction(DeleteBoard, async (data: InputType)
     };
   }
 
-  const isPro = await checkSubscription();
+  // Check if the user has any unused boards left (pro has unlimited)
+  let isPro;
+  try {
+    isPro = await checkSubscription();
+  } catch {
+    return {
+      error: "Failed to check subscription status",
+    };
+  }
 
   const { id } = data;
   let board;

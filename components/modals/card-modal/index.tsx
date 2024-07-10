@@ -5,7 +5,7 @@ import { Actions } from "@/components/modals/card-modal/actions";
 import { Activity } from "@/components/modals/card-modal/activity";
 import { Description } from "@/components/modals/card-modal/description";
 import { useCardModal } from "@/hooks/useCardModal";
-import { fetcher } from "@/lib/fetcher";
+import { fetcher } from "@/lib/helpers/fetcher";
 import { CardWithList } from "@/types";
 import { Header } from "./header";
 

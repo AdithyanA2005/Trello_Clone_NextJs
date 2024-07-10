@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { ActionState, FieldErrors } from "@/lib/create-safe-action";
+import { ActionState, FieldErrors } from "@/lib/helpers/create-safe-action";
 
 /**
  * Defines the structure of an action function that takes input data of type `TInput` and returns a promise that resolves to an `ActionState<TInput, TOutput>`.

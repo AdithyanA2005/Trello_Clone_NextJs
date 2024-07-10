@@ -45,7 +45,7 @@ export const updateCardOrder = createSafeAction(UpdateCardOrder, async (data: In
         },
       }),
     );
-    const cards = await prisma.$transaction(transaction);
+    cards = await prisma.$transaction(transaction);
   } catch (error) {
     return {
       error: "Failed to create",

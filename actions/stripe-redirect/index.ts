@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { auth, currentUser } from "@clerk/nextjs/server";
+import { siteConfig } from "@/config/site";
 import { createSafeAction } from "@/lib/create-safe-action";
 import { prisma } from "@/lib/db";
 import { stripe } from "@/lib/stripe";
@@ -49,7 +50,7 @@ export const stripeRedirect = createSafeAction(StripeRedirect, async (data: Inpu
             price_data: {
               currency: "INR",
               product_data: {
-                name: "AdisTaskify Pro",
+                name: `${siteConfig.name} Pro`,
                 description: "Unlimited boards for your organization",
               },
               unit_amount: 200000,

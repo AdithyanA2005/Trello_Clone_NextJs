@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import { Board } from "@prisma/client";
 import { toast } from "sonner";
-import { useEventListener, useOnClickOutside } from "usehooks-ts";
+import { useEventListener } from "usehooks-ts";
 import { Button } from "@/components/ui/button";
 import { FormInput } from "@/components/form/form-input";
 import useAction from "@/hooks/useAction";

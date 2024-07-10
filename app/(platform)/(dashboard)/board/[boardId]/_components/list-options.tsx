@@ -1,5 +1,3 @@
-"use client";
-
 import { useRef } from "react";
 import { List } from "@prisma/client";
 import { MoreHorizontalIcon, XIcon } from "lucide-react";

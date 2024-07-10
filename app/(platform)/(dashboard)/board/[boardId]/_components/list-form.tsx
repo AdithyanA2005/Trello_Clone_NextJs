@@ -33,7 +33,7 @@ export function ListForm() {
       router.refresh();
     },
     onError: (error) => {
-      toast.error;
+      toast.error(error);
     },
   });
 

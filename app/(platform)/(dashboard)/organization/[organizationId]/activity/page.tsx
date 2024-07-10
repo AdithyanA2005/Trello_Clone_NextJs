@@ -1,8 +1,8 @@
 import { Suspense } from "react";
 import { Separator } from "@/components/ui/separator";
 import { checkSubscription } from "@/lib/subscription";
-import { ActivityList } from "@/app/(platform)/(dashboard)/organization/[organizationId]/activity/_components/activity-list";
 import { Info } from "../_components/info";
+import { ActivityList } from "./_components/activity-list";
 
 export default async function ActivityPage() {
   const isPro = await checkSubscription();

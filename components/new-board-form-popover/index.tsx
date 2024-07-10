@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import React, { useRef } from "react";
 import { useRouter } from "next/navigation";
 import { XIcon } from "lucide-react";
 import { toast } from "sonner";

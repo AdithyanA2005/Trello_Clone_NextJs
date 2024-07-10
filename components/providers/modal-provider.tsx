@@ -14,7 +14,7 @@ export function ModalProvider() {
   if (!isMounted) return null;
   return (
     <>
-      <CardModal />; p
+      <CardModal />
       <ProModal />
     </>
   );

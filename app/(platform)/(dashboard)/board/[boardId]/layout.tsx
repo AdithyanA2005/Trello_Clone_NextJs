@@ -33,8 +33,6 @@ export default async function BoardIdLayout({ children, params }: { children: Re
   });
   if (!board) notFound();
 
-  const { boardId } = params;
-
   return (
     <div
       style={{ backgroundImage: `url(${board.imageFullUrl})` }}

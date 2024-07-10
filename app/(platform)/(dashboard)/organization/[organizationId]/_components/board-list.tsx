@@ -5,9 +5,9 @@ import { HelpCircleIcon, User2Icon } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { NewBoardFormPopover } from "@/components/new-board-form-popover";
 import { MAX_FREE_BOARDS } from "@/lib/constants/boards";
+import { getUsedBoardCount } from "@/lib/database/helpers/org-limit";
+import { checkSubscription } from "@/lib/database/helpers/org-subscription";
 import { prisma } from "@/lib/database/prisma";
-import { getUsedBoardCount } from "@/lib/org-limit";
-import { checkSubscription } from "@/lib/subscription";
 import { Hint } from "./hint";
 
 export async function BoardList() {

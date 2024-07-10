@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { Separator } from "@/components/ui/separator";
-import { checkSubscription } from "@/lib/subscription";
+import { checkSubscription } from "@/lib/database/helpers/org-subscription";
 import { BoardList } from "./_components/board-list";
 import { Info } from "./_components/info";
 

@@ -4,11 +4,11 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { auth } from "@clerk/nextjs/server";
 import { ACTION, ENTITY_TYPE } from "@prisma/client";
-import { createAuditLog } from "@/lib/create-audit-log";
 import { createSafeAction } from "@/lib/create-safe-action";
+import { createAuditLog } from "@/lib/database/helpers/audit-log";
+import { decrementUsedBoardCount, hasUnusedBoard } from "@/lib/database/helpers/org-limit";
+import { checkSubscription } from "@/lib/database/helpers/org-subscription";
 import { prisma } from "@/lib/database/prisma";
-import { decrementUsedBoardCount, hasUnusedBoard } from "@/lib/org-limit";
-import { checkSubscription } from "@/lib/subscription";
 import { DeleteBoard } from "./schema";
 import { InputType, ReturnType } from "./types";
 

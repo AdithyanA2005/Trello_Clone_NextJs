@@ -2,7 +2,7 @@ import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { prisma } from "@/lib/database/prisma";
-import { stripe } from "@/lib/stripe";
+import { stripe } from "@/lib/integrations/stripe";
 
 export async function POST(req: Request) {
   const body = await req.text();

@@ -1,0 +1,16 @@
+import { Separator } from "@/components/ui/separator";
+import { checkSubscription } from "@/lib/subscription";
+import { SubscriptionButton } from "@/app/(platform)/(dashboard)/organization/[organizationId]/billing/_components/subscription-button";
+import { Info } from "../_components/info";
+
+export default async function BillingPage() {
+  const isPro = await checkSubscription();
+
+  return (
+    <div className="w-full">
+      <Info isPro={isPro} />
+      <Separator className="my-2" />
+      <SubscriptionButton isPro={isPro} />
+    </div>
+  );
+}

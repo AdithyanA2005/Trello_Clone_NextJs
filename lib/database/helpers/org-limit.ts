@@ -2,6 +2,7 @@ import { auth } from "@clerk/nextjs/server";
 import { MAX_FREE_BOARDS } from "@/lib/constants/boards";
 import { prisma } from "@/lib/database/prisma";
 
+// Increment the used board count for the organization.
 export async function incrementUsedBoardCount() {
   const { orgId } = auth();
   if (!orgId) throw new Error("Unauthorized");
@@ -22,6 +23,7 @@ export async function incrementUsedBoardCount() {
   }
 }
 
+// Decrement the used board count for the organization.
 export async function decrementUsedBoardCount() {
   const { orgId } = auth();
   if (!orgId) throw new Error("Unauthorized");
@@ -42,6 +44,7 @@ export async function decrementUsedBoardCount() {
   }
 }
 
+// Gives no of board used by the organization
 export async function getUsedBoardCount() {
   const { orgId } = auth();
   if (!orgId) return 0;
@@ -54,6 +57,7 @@ export async function getUsedBoardCount() {
   return orgLimit.count;
 }
 
+// Check if the organization has any unused boards left.
 export async function hasUnusedBoard() {
   const { orgId } = auth();
   if (!orgId) throw new Error("Unauthorized");

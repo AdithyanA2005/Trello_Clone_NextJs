@@ -3,6 +3,7 @@ import { prisma } from "@/lib/database/prisma";
 
 const DAY_IN_MS = 1000 * 60 * 60 * 24;
 
+// Check if the organization has an active subscription.
 export async function checkSubscription() {
   const { orgId } = auth();
   if (!orgId) return false;

@@ -9,6 +9,7 @@ interface Props {
   action: ACTION;
 }
 
+// Create an audit log entry for the given entity action.
 export async function createAuditLog({ entityId, entityType, entityTitle, action }: Props) {
   const { orgId } = auth();
   const user = await currentUser();

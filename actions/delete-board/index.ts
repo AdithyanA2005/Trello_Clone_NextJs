@@ -8,6 +8,7 @@ import { createAuditLog } from "@/lib/create-audit-log";
 import { createSafeAction } from "@/lib/create-safe-action";
 import { prisma } from "@/lib/db";
 import { decrementUsedBoardCount } from "@/lib/org-limit";
+import { checkSubscription } from "@/lib/subscription";
 import { DeleteBoard } from "./schema";
 import { InputType, ReturnType } from "./types";
 
@@ -30,6 +31,8 @@ export const deleteBoard = createSafeAction(DeleteBoard, async (data: InputType)
     };
   }
 
+  const isPro = await checkSubscription();
+
   const { id } = data;
   let board;
 
@@ -38,7 +41,7 @@ export const deleteBoard = createSafeAction(DeleteBoard, async (data: InputType)
       where: { id, orgId },
     });
 
-    await decrementUsedBoardCount();
+    if (!isPro) await decrementUsedBoardCount();
 
     await createAuditLog({
       entityTitle: board.title,

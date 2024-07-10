@@ -1,5 +1,5 @@
 import { auth } from "@clerk/nextjs/server";
-import { MAX_FREE_BOARDS } from "@/constants/boards";
+import { MAX_FREE_BOARDS } from "@/lib/constants/boards";
 import { prisma } from "@/lib/database/prisma";
 
 export async function incrementUsedBoardCount() {

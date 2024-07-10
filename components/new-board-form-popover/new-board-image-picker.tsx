@@ -7,7 +7,7 @@ import Link from "next/link";
 import { CheckIcon, Loader2Icon } from "lucide-react";
 import { Random } from "unsplash-js/dist/methods/photos/types";
 import { FormErrors } from "@/components/form/form-errors";
-import { defaultUnsplashBoardImages } from "@/constants/images";
+import { defaultUnsplashBoardImages } from "@/lib/constants/images";
 import { unsplash } from "@/lib/unsplash";
 import { cn } from "@/lib/utils";
 

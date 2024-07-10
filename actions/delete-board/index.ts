@@ -3,6 +3,8 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { auth } from "@clerk/nextjs/server";
+import { ACTION, ENTITY_TYPE } from "@prisma/client";
+import { createAuditLog } from "@/lib/create-audit-log";
 import { createSafeAction } from "@/lib/create-safe-action";
 import { prisma } from "@/lib/db";
 import { DeleteBoard } from "./schema";
@@ -33,6 +35,13 @@ export const deleteBoard = createSafeAction(DeleteBoard, async (data: InputType)
   try {
     board = await prisma.board.delete({
       where: { id, orgId },
+    });
+
+    await createAuditLog({
+      entityTitle: board.title,
+      entityId: board.id,
+      entityType: ENTITY_TYPE.BOARD,
+      action: ACTION.DELETE,
     });
   } catch (error) {
     return {

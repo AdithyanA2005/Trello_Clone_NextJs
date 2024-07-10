@@ -2,7 +2,9 @@
 
 import { revalidatePath } from "next/cache";
 import { auth } from "@clerk/nextjs/server";
+import { ACTION, ENTITY_TYPE } from "@prisma/client";
 import { CreateBoardSchema } from "@/actions/create-board/schema";
+import { createAuditLog } from "@/lib/create-audit-log";
 import { createSafeAction } from "@/lib/create-safe-action";
 import { prisma } from "@/lib/db";
 import { InputType, ReturnType } from "./types";
@@ -41,6 +43,13 @@ export const createBoard = createSafeAction(CreateBoardSchema, async (data: Inpu
     // Attempt to create a new board in the database
     board = await prisma.board.create({
       data: { title, orgId, imageId, imageThumbUrl, imageFullUrl, imageLinkHTML, imageUserName },
+    });
+
+    await createAuditLog({
+      entityTitle: board.title,
+      entityId: board.id,
+      entityType: ENTITY_TYPE.BOARD,
+      action: ACTION.CREATE,
     });
   } catch (error) {
     // Return an error if the board creation fails

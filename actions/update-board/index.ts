@@ -2,6 +2,8 @@
 
 import { revalidatePath } from "next/cache";
 import { auth } from "@clerk/nextjs/server";
+import { ACTION, ENTITY_TYPE } from "@prisma/client";
+import { createAuditLog } from "@/lib/create-audit-log";
 import { createSafeAction } from "@/lib/create-safe-action";
 import { prisma } from "@/lib/db";
 import { UpdateBoard } from "./schema";
@@ -33,6 +35,13 @@ export const updateBoard = createSafeAction(UpdateBoard, async (data: InputType)
     board = await prisma.board.update({
       where: { id, orgId },
       data: { title },
+    });
+
+    await createAuditLog({
+      entityTitle: board.title,
+      entityId: board.id,
+      entityType: ENTITY_TYPE.BOARD,
+      action: ACTION.UPDATE,
     });
   } catch (error) {
     // Return an error if the update operation fails

@@ -2,6 +2,8 @@
 
 import { revalidatePath } from "next/cache";
 import { auth } from "@clerk/nextjs/server";
+import { ACTION, ENTITY_TYPE } from "@prisma/client";
+import { createAuditLog } from "@/lib/create-audit-log";
 import { createSafeAction } from "@/lib/create-safe-action";
 import { prisma } from "@/lib/db";
 import { CreateCard } from "./schema";
@@ -57,6 +59,13 @@ export const createCard = createSafeAction(CreateCard, async (data: InputType): 
         listId,
         position: newPosition,
       },
+    });
+
+    await createAuditLog({
+      entityId: card.id,
+      entityType: ENTITY_TYPE.CARD,
+      entityTitle: card.title,
+      action: ACTION.CREATE,
     });
   } catch (error) {
     return {

@@ -10,6 +10,7 @@ import { FormInput } from "@/components/form/form-input";
 import { FormSubmit } from "@/components/form/form-submit";
 import { NewBoardImagePicker } from "@/components/new-board-form-popover/new-board-image-picker";
 import useAction from "@/hooks/useAction";
+import { useProModal } from "@/hooks/useProModal";
 import { createBoard } from "@/actions/create-board";
 
 interface FormPopoverProps {
@@ -21,6 +22,7 @@ interface FormPopoverProps {
 export function NewBoardFormPopover({ children, sideOffset = 0, side = "bottom", align }: FormPopoverProps) {
   const router = useRouter();
   const closeRef = useRef<HTMLButtonElement>(null);
+  const proModal = useProModal();
 
   const { execute, fieldErrors } = useAction(createBoard, {
     onSuccess: (data) => {
@@ -30,6 +32,9 @@ export function NewBoardFormPopover({ children, sideOffset = 0, side = "bottom",
     },
     onError: (error) => {
       toast.error(error);
+
+      // Open upgrade to pro modal if error message contains "upgrade"
+      if (error.toLowerCase().includes("upgrade")) proModal.onOpen();
     },
   });
 

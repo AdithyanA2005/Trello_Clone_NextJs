@@ -5,7 +5,7 @@ import { auth } from "@clerk/nextjs/server";
 import { ACTION, ENTITY_TYPE } from "@prisma/client";
 import { createAuditLog } from "@/lib/create-audit-log";
 import { createSafeAction } from "@/lib/create-safe-action";
-import { prisma } from "@/lib/db";
+import { prisma } from "@/lib/database/prisma";
 import { CopyCard } from "./schema";
 import { InputType, ReturnType } from "./types";
 
@@ -34,6 +34,7 @@ export const copyCard = createSafeAction(CopyCard, async (data: InputType): Prom
   let card;
 
   try {
+    // Find the card to copy
     const cardToCopy = await prisma.card.findUnique({
       where: {
         id,
@@ -42,6 +43,7 @@ export const copyCard = createSafeAction(CopyCard, async (data: InputType): Prom
     });
     if (!cardToCopy) return { error: "Card not found" };
 
+    // Find the last card in the list and assign the new card the next available position
     const lastCard = await prisma.card.findFirst({
       where: { listId: cardToCopy.listId },
       orderBy: { position: "desc" },
@@ -49,6 +51,7 @@ export const copyCard = createSafeAction(CopyCard, async (data: InputType): Prom
     });
     const newPosition = lastCard ? lastCard.position + 1 : 1;
 
+    // Create a new card with the copied card's title and description
     card = await prisma.card.create({
       data: {
         title: `${cardToCopy.title} - Copy`,
@@ -58,6 +61,7 @@ export const copyCard = createSafeAction(CopyCard, async (data: InputType): Prom
       },
     });
 
+    // Create an audit log for the create(copy) operation
     await createAuditLog({
       entityTitle: card.title,
       entityId: card.id,
@@ -70,6 +74,7 @@ export const copyCard = createSafeAction(CopyCard, async (data: InputType): Prom
     };
   }
 
+  // Revalidate the cache for the updated board
   revalidatePath(`/board/${boardId}`);
   return { data: card };
 });

@@ -6,7 +6,7 @@ import { ACTION, ENTITY_TYPE } from "@prisma/client";
 import { CreateBoardSchema } from "@/actions/create-board/schema";
 import { createAuditLog } from "@/lib/create-audit-log";
 import { createSafeAction } from "@/lib/create-safe-action";
-import { prisma } from "@/lib/db";
+import { prisma } from "@/lib/database/prisma";
 import { hasUnusedBoard, incrementUsedBoardCount } from "@/lib/org-limit";
 import { checkSubscription } from "@/lib/subscription";
 import { InputType, ReturnType } from "./types";
@@ -45,6 +45,7 @@ export const createBoard = createSafeAction(CreateBoardSchema, async (data: Inpu
     return { error: "You have reached your limit of free boards. Please upgrade to create more." };
   }
 
+  // Extract the title and image data from the input
   const { title, image } = data;
 
   // Data's for image is given as a string, each data seperated by "|"
@@ -56,15 +57,16 @@ export const createBoard = createSafeAction(CreateBoardSchema, async (data: Inpu
   }
 
   let board;
-
   try {
     // Attempt to create a new board in the database
     board = await prisma.board.create({
       data: { title, orgId, imageId, imageThumbUrl, imageFullUrl, imageLinkHTML, imageUserName },
     });
 
+    // Increment the used board count if the user is not on a pro plan
     if (!isPro) await incrementUsedBoardCount();
 
+    // Create an audit log for the board creation
     await createAuditLog({
       entityTitle: board.title,
       entityId: board.id,
@@ -78,6 +80,7 @@ export const createBoard = createSafeAction(CreateBoardSchema, async (data: Inpu
     };
   }
 
+  // Revalidate the cache for the board's path
   revalidatePath(`/board/${board.id}`); // Trigger a revalidation of the board's path to update the cache
   return { data: board };
 });

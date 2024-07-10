@@ -5,7 +5,7 @@ import { auth } from "@clerk/nextjs/server";
 import { ACTION, ENTITY_TYPE } from "@prisma/client";
 import { createAuditLog } from "@/lib/create-audit-log";
 import { createSafeAction } from "@/lib/create-safe-action";
-import { prisma } from "@/lib/db";
+import { prisma } from "@/lib/database/prisma";
 import { UpdateBoard } from "./schema";
 import { InputType, ReturnType } from "./types";
 
@@ -37,6 +37,7 @@ export const updateBoard = createSafeAction(UpdateBoard, async (data: InputType)
       data: { title },
     });
 
+    // Create an audit log for the board update
     await createAuditLog({
       entityTitle: board.title,
       entityId: board.id,

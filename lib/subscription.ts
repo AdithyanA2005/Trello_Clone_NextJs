@@ -1,5 +1,5 @@
 import { auth } from "@clerk/nextjs/server";
-import { prisma } from "@/lib/db";
+import { prisma } from "@/lib/database/prisma";
 
 const DAY_IN_MS = 1000 * 60 * 60 * 24;
 

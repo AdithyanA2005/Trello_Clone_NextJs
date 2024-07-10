@@ -5,7 +5,7 @@ import { auth } from "@clerk/nextjs/server";
 import { ACTION, ENTITY_TYPE } from "@prisma/client";
 import { createAuditLog } from "@/lib/create-audit-log";
 import { createSafeAction } from "@/lib/create-safe-action";
-import { prisma } from "@/lib/db";
+import { prisma } from "@/lib/database/prisma";
 import { DeleteCard } from "./schema";
 import { InputType, ReturnType } from "./types";
 
@@ -34,6 +34,7 @@ export const deleteCard = createSafeAction(DeleteCard, async (data: InputType): 
   let card;
 
   try {
+    // Attempt to delete the card from the database
     card = await prisma.card.delete({
       where: {
         id,
@@ -41,6 +42,7 @@ export const deleteCard = createSafeAction(DeleteCard, async (data: InputType): 
       },
     });
 
+    // Create an audit log for the card deletion
     await createAuditLog({
       entityTitle: card.title,
       entityId: card.id,
@@ -53,6 +55,7 @@ export const deleteCard = createSafeAction(DeleteCard, async (data: InputType): 
     };
   }
 
+  // Revalidate the board's path to update the cache
   revalidatePath(`/board/${boardId}`);
   return { data: card };
 });

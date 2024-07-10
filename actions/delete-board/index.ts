@@ -6,8 +6,8 @@ import { auth } from "@clerk/nextjs/server";
 import { ACTION, ENTITY_TYPE } from "@prisma/client";
 import { createAuditLog } from "@/lib/create-audit-log";
 import { createSafeAction } from "@/lib/create-safe-action";
-import { prisma } from "@/lib/db";
-import { decrementUsedBoardCount } from "@/lib/org-limit";
+import { prisma } from "@/lib/database/prisma";
+import { decrementUsedBoardCount, hasUnusedBoard } from "@/lib/org-limit";
 import { checkSubscription } from "@/lib/subscription";
 import { DeleteBoard } from "./schema";
 import { InputType, ReturnType } from "./types";
@@ -41,16 +41,20 @@ export const deleteBoard = createSafeAction(DeleteBoard, async (data: InputType)
     };
   }
 
+  // Extract the board ID from the input data
   const { id } = data;
-  let board;
 
+  let board;
   try {
+    // Attempt to delete the board from the database
     board = await prisma.board.delete({
       where: { id, orgId },
     });
 
+    // Decrement the used board count if the user is not on a pro plan
     if (!isPro) await decrementUsedBoardCount();
 
+    // Create an audit log for the board deletion
     await createAuditLog({
       entityTitle: board.title,
       entityId: board.id,
@@ -58,11 +62,13 @@ export const deleteBoard = createSafeAction(DeleteBoard, async (data: InputType)
       action: ACTION.DELETE,
     });
   } catch (error) {
+    // Return an error if the deletion fails
     return {
       error: "Failed to delete",
     };
   }
 
+  // Revalidate the organization's path to update the cache
   revalidatePath(`/organization/${orgId}`);
   redirect(`/organization/${orgId}`);
 });

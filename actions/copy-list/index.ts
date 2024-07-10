@@ -5,7 +5,7 @@ import { auth } from "@clerk/nextjs/server";
 import { ACTION, ENTITY_TYPE } from "@prisma/client";
 import { createAuditLog } from "@/lib/create-audit-log";
 import { createSafeAction } from "@/lib/create-safe-action";
-import { prisma } from "@/lib/db";
+import { prisma } from "@/lib/database/prisma";
 import { CopyList } from "./schema";
 import { InputType, ReturnType } from "./types";
 
@@ -35,6 +35,7 @@ export const copyList = createSafeAction(CopyList, async (data: InputType): Prom
   let list;
 
   try {
+    // Find the list to copy
     const listToCopy = await prisma.list.findUnique({
       where: {
         id,
@@ -47,6 +48,7 @@ export const copyList = createSafeAction(CopyList, async (data: InputType): Prom
     });
     if (!listToCopy) return { error: "List not found" };
 
+    // Find the last list in the board and assign the new list the next available position
     const lastList = await prisma.list.findFirst({
       where: { boardId },
       orderBy: { position: "desc" },
@@ -54,6 +56,7 @@ export const copyList = createSafeAction(CopyList, async (data: InputType): Prom
     });
     const newPosition = lastList ? lastList.position + 1 : 1;
 
+    // Create a new list with the copied list's title and all its cards
     list = await prisma.list.create({
       data: {
         boardId: listToCopy.boardId,
@@ -75,12 +78,12 @@ export const copyList = createSafeAction(CopyList, async (data: InputType): Prom
             : {}),
         },
       },
-      // },
       include: {
         cards: true,
       },
     });
 
+    // Create an audit log for the new create(copy) operation
     await createAuditLog({
       entityTitle: list.title,
       entityId: list.id,
@@ -95,6 +98,7 @@ export const copyList = createSafeAction(CopyList, async (data: InputType): Prom
     };
   }
 
+  // Revalidate the cache for the updated board
   revalidatePath(`/board/${boardId}`);
   return { data: list };
 });

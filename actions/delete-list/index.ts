@@ -5,7 +5,7 @@ import { auth } from "@clerk/nextjs/server";
 import { ACTION, ENTITY_TYPE } from "@prisma/client";
 import { createAuditLog } from "@/lib/create-audit-log";
 import { createSafeAction } from "@/lib/create-safe-action";
-import { prisma } from "@/lib/db";
+import { prisma } from "@/lib/database/prisma";
 import { DeleteList } from "./schema";
 import { InputType, ReturnType } from "./types";
 
@@ -34,6 +34,7 @@ export const deleteList = createSafeAction(DeleteList, async (data: InputType): 
   let list;
 
   try {
+    // Attempt to delete the list from the database
     list = await prisma.list.delete({
       where: {
         id,

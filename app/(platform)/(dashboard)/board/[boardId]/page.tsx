@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { auth } from "@clerk/nextjs/server";
-import { prisma } from "@/lib/db";
+import { prisma } from "@/lib/database/prisma";
 import { ListContainer } from "./_components/list-container";
 
 interface BoardIdPageProps {

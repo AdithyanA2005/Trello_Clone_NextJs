@@ -1,6 +1,6 @@
 import { auth } from "@clerk/nextjs/server";
 import { MAX_FREE_BOARDS } from "@/constants/boards";
-import { prisma } from "@/lib/db";
+import { prisma } from "@/lib/database/prisma";
 
 export async function incrementUsedBoardCount() {
   const { orgId } = auth();

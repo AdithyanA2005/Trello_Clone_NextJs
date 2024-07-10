@@ -5,7 +5,7 @@ import { HelpCircleIcon, User2Icon } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { NewBoardFormPopover } from "@/components/new-board-form-popover";
 import { MAX_FREE_BOARDS } from "@/constants/boards";
-import { prisma } from "@/lib/db";
+import { prisma } from "@/lib/database/prisma";
 import { getUsedBoardCount } from "@/lib/org-limit";
 import { checkSubscription } from "@/lib/subscription";
 import { Hint } from "./hint";

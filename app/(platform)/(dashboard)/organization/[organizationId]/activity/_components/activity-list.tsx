@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 import { auth } from "@clerk/nextjs/server";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ActivityItem } from "@/components/activity-item";
-import { prisma } from "@/lib/db";
+import { prisma } from "@/lib/database/prisma";
 
 export async function ActivityList() {
   const { orgId } = auth();

@@ -7,7 +7,7 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import useAction from "@/hooks/useAction";
 import { useProModal } from "@/hooks/useProModal";
 import { stripeRedirect } from "@/actions/stripe-redirect";
-import { siteConfig } from "@/config/site";
+import { siteConfig } from "@/lib/config/site";
 
 export function ProModal() {
   const { isOpen, onClose } = useProModal();

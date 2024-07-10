@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/logo";
-import { siteConfig } from "@/config/site";
+import { siteConfig } from "@/lib/config/site";
 
 export function Navbar() {
   return (

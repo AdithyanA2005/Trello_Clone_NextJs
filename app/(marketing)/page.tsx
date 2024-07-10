@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 import Link from "next/link";
 import { MedalIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { siteConfig } from "@/config/site";
+import { siteConfig } from "@/lib/config/site";
 import { cn } from "@/lib/utils";
 
 const headingFont = localFont({

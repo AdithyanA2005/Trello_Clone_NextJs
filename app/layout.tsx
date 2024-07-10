@@ -1,7 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { siteConfig } from "@/config/site";
+import { siteConfig } from "@/lib/config/site";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });

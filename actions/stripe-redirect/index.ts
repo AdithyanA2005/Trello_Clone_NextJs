@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { auth, currentUser } from "@clerk/nextjs/server";
-import { siteConfig } from "@/config/site";
+import { siteConfig } from "@/lib/config/site";
 import { createSafeAction } from "@/lib/create-safe-action";
 import { prisma } from "@/lib/database/prisma";
 import { stripe } from "@/lib/stripe";

@@ -7,6 +7,7 @@ import { CreateBoardSchema } from "@/actions/create-board/schema";
 import { createAuditLog } from "@/lib/create-audit-log";
 import { createSafeAction } from "@/lib/create-safe-action";
 import { prisma } from "@/lib/db";
+import { hasUnusedBoard, incrementUsedBoardCount } from "@/lib/org-limit";
 import { InputType, ReturnType } from "./types";
 
 /**
@@ -27,6 +28,10 @@ export const createBoard = createSafeAction(CreateBoardSchema, async (data: Inpu
     };
   }
 
+  // Check if the user has any unused boards left
+  const canCreate = await hasUnusedBoard();
+  if (!canCreate) return { error: "You have reached your limit of free boards. Please upgrade to create more." };
+
   const { title, image } = data;
 
   // Data's for image is given as a string, each data seperated by "|"
@@ -44,6 +49,8 @@ export const createBoard = createSafeAction(CreateBoardSchema, async (data: Inpu
     board = await prisma.board.create({
       data: { title, orgId, imageId, imageThumbUrl, imageFullUrl, imageLinkHTML, imageUserName },
     });
+
+    await incrementUsedBoardCount();
 
     await createAuditLog({
       entityTitle: board.title,

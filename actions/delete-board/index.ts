@@ -7,6 +7,7 @@ import { ACTION, ENTITY_TYPE } from "@prisma/client";
 import { createAuditLog } from "@/lib/create-audit-log";
 import { createSafeAction } from "@/lib/create-safe-action";
 import { prisma } from "@/lib/db";
+import { decrementUsedBoardCount } from "@/lib/org-limit";
 import { DeleteBoard } from "./schema";
 import { InputType, ReturnType } from "./types";
 
@@ -36,6 +37,8 @@ export const deleteBoard = createSafeAction(DeleteBoard, async (data: InputType)
     board = await prisma.board.delete({
       where: { id, orgId },
     });
+
+    await decrementUsedBoardCount();
 
     await createAuditLog({
       entityTitle: board.title,

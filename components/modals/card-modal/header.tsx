@@ -39,6 +39,9 @@ export function Header({ data }: HeaderProps) {
       await queryClient.invalidateQueries({
         queryKey: ["card", data.id],
       });
+      await queryClient.invalidateQueries({
+        queryKey: ["card-logs", data.id],
+      });
       toast.success(`Renamed to "${data.title}"`);
       setTitle(data.title);
       disableEditing();

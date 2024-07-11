@@ -6,6 +6,7 @@ import { generateLogMessage } from "@/lib/helpers/generate-log-message";
 interface ActivityItemProps {
   data: AuditLog;
 }
+
 export function ActivityItem({ data }: ActivityItemProps) {
   return (
     <li className="flex items-center gap-x-2">

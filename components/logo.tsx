@@ -5,7 +5,7 @@ import { siteConfig } from "@/lib/config/site";
 import { cn } from "@/lib/utils";
 
 const headingFont = localFont({
-  src: "..//public/fonts/cal-sans.woff2",
+  src: "../public/fonts/cal-sans.woff2",
 });
 
 export function Logo({ containerClassName, size = 30 }: { containerClassName?: string; size?: number }) {

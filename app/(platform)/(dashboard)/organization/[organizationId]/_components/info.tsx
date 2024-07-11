@@ -17,7 +17,7 @@ export function Info({ isPro }: InfoProps) {
   return (
     <div className="flex items-center gap-x-4">
       <div className="relative h-[60px] w-[60px]">
-        <Image fill src={organization?.imageUrl!} alt="organization" className="rounded-md object-cover" />
+        <Image fill src={organization?.imageUrl!} alt="organization" className="rounded-md object-cover" sizes="60px" />
       </div>
 
       <div className="space-y-1">

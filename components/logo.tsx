@@ -12,7 +12,7 @@ export function Logo({ containerClassName, size = 30 }: { containerClassName?: s
   return (
     <Link href="/">
       <div className={cn("hidden items-center gap-2 transition hover:opacity-75 md:flex", containerClassName)}>
-        <Image src="/logo.svg" alt="Logo" height={size} width={size} />
+        <Image src="/logo.svg" alt="Logo" height={size} width={size} className="aspect-square" />
         <p className={cn("pb-1 text-lg text-neutral-700", headingFont.className)}>{siteConfig.name}</p>
       </div>
     </Link>

@@ -61,8 +61,14 @@ export function NavItem({ onExpand, isExpanded, organization, isActive }: NavIte
         )}
       >
         <div className="flex items-center gap-x-2">
-          <div className="relative size-7">
-            <Image fill src={organization.imageUrl} alt="Organization" className="rounded-sm object-cover" />
+          <div className="relative size-[28px]">
+            <Image
+              fill
+              src={organization.imageUrl}
+              alt="Organization"
+              className="rounded-sm object-cover"
+              sizes="28px"
+            />
           </div>
           <span className="text-sm font-medium">{organization.name}</span>
         </div>

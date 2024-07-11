@@ -23,7 +23,7 @@ export default async function BoardIdPage({ params }: BoardIdPageProps) {
   });
 
   return (
-    <div className="h-full overflow-x-auto p-4">
+    <div className="scrollbar-thin scrollbar-track-primary/50 scrollbar-thumb-primary-foreground/50 h-full overflow-x-auto p-4">
       <ListContainer boardId={params.boardId} lists={lists} />
     </div>
   );

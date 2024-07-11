@@ -27,7 +27,10 @@ export function ListItem({ list, index }: ListItemProps) {
     <Draggable draggableId={list.id} index={index}>
       {(provided) => (
         <li {...provided.draggableProps} ref={provided.innerRef} className="h-full w-[272px] shrink-0 select-none">
-          <div {...provided.dragHandleProps} className="w-full rounded-md bg-[#f1f2f4] pb-2 shadow-md">
+          <div
+            {...provided.dragHandleProps}
+            className="flex max-h-full w-full flex-col rounded-md bg-[#f1f2f4] pb-2 shadow-md"
+          >
             <ListHeader onAddCard={enableEditing} list={list} />
 
             <Droppable droppableId={list.id} type="card">
@@ -35,7 +38,10 @@ export function ListItem({ list, index }: ListItemProps) {
                 <ol
                   {...provided.droppableProps}
                   ref={provided.innerRef}
-                  className={cn("mx-1 flex flex-col gap-y-2 px-1 py-0.5", list.cards.length > 0 ? "mt-2" : "mt-0")}
+                  className={cn(
+                    "scrollbar-thin scrollbar-track-black/10 scrollbar-thumb-muted-foreground/40 mx-1 flex flex-col gap-y-2 overflow-y-auto px-1 py-0.5",
+                    list.cards.length > 0 ? "mt-2" : "mt-0",
+                  )}
                 >
                   {list.cards.map((card, index) => (
                     <CardItem index={index} key={card.id} card={card} />

@@ -21,7 +21,7 @@ export function CardItem({ index, card }: CardItemProps) {
           ref={provided.innerRef}
           role="button"
           onClick={() => onOpen(card.id)}
-          className="outline-no truncate rounded-md border-2 border-transparent bg-white px-3 py-2.5 shadow-sm hover:border-sky-700"
+          className="min-h-12 truncate rounded-md border-2 border-transparent bg-white px-3 py-2.5 shadow-sm outline-none hover:border-sky-700"
         >
           {card.title}
         </div>

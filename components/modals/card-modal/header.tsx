@@ -67,7 +67,7 @@ export function Header({ data }: HeaderProps) {
   };
 
   return (
-    <div className="mb-6 flex w-full items-start gap-x-2">
+    <div className="flex w-full items-start gap-x-2">
       <LayoutIcon className="mt-1.5 size-5 text-neutral-700" />
 
       <div className="relative w-full">
@@ -100,7 +100,7 @@ export function Header({ data }: HeaderProps) {
 
 Header.Skeleton = function HeaderSkeleton() {
   return (
-    <div className="mb-6 flex items-start gap-x-3">
+    <div className="flex items-start gap-x-3">
       <Skeleton className="mt-1 h-6 w-6 bg-neutral-200" />
       <div>
         <Skeleton className="mb-1 h-6 w-24 bg-neutral-200" />

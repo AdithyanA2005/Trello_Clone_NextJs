@@ -1,6 +1,7 @@
 import { AuditLog } from "@prisma/client";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { useQuery } from "@tanstack/react-query";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { Actions } from "@/components/modals/card-modal/actions";
 import { Activity } from "@/components/modals/card-modal/activity";
 import { Description } from "@/components/modals/card-modal/description";
@@ -24,8 +25,13 @@ export function CardModal() {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent>
-        {!cardData ? <Header.Skeleton /> : <Header data={cardData} />}
+      <DialogContent className="gap-0">
+        <VisuallyHidden>
+          <DialogTitle>{cardData?.title}</DialogTitle>
+          <DialogDescription>{cardData?.description}</DialogDescription>
+        </VisuallyHidden>
+
+        <div className="mb-6">{!cardData ? <Header.Skeleton /> : <Header data={cardData} />}</div>
 
         <div className="grid grid-cols-1 md:grid-cols-4 md:gap-4">
           <div className="col-span-3">
@@ -38,6 +44,7 @@ export function CardModal() {
           {!cardData ? <Actions.Skeleton /> : <Actions data={cardData} />}
         </div>
       </DialogContent>
+      <DialogClose className="t top-2" />
     </Dialog>
   );
 }

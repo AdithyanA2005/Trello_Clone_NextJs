@@ -15,7 +15,7 @@ export function Activity({ logs }: ActivityProps) {
       <ActivityIcon className="mt-0.5 size-5 text-neutral-700" />
 
       <div className="w-full">
-        <p className="mb-2 font-semibold text-neutral-700">Activity</p>
+        <h3 className="mb-2 font-semibold text-neutral-700">Activity</h3>
 
         <ol className="mt-2 space-y-2">
           {logs.map((log) => (

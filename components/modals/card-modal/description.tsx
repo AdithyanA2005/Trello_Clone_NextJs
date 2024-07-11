@@ -7,6 +7,7 @@ import { AlignLeftIcon } from "lucide-react";
 import { toast } from "sonner";
 import { useOnClickOutside } from "usehooks-ts";
 import { Button } from "@/components/ui/button";
+import { DialogDescription } from "@/components/ui/dialog";
 import { Skeleton } from "@/components/ui/skeleton";
 import { FormSubmit } from "@/components/form/form-submit";
 import { FormTextarea } from "@/components/form/form-textarea";
@@ -70,7 +71,7 @@ export function Description({ data }: DescriptionProps) {
       <AlignLeftIcon className="mt-0.5 size-5 text-neutral-700" />
 
       <div className="w-full">
-        <h3 className="mb-2 font-semibold text-neutral-800">Description</h3>
+        <h3 className="mb-2 text-base font-semibold text-neutral-800">Description</h3>
 
         {isEditing ? (
           <form ref={formRef} action={onSubmit} className="space-y-2">

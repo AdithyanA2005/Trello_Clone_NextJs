@@ -5,19 +5,22 @@ import { prisma } from "@/lib/database/prisma";
 import { stripe } from "@/lib/integrations/stripe";
 
 export async function POST(req: Request) {
+  // Parse the request body and validate the signature.
   const body = await req.text();
   const signature = headers().get("Stripe-Signature") as string;
 
+  // Verify the event by passing the signature and body to the Stripe SDK.
   let event: Stripe.Event;
-
   try {
     event = stripe.webhooks.constructEvent(body, signature, process.env.STRIPE_WEBHOOK_SECRET!);
   } catch {
     return new NextResponse("Webhook error", { status: 400 });
   }
 
+  // Handle the event.
   const session = event.data.object as Stripe.Checkout.Session;
 
+  // Handle checkout session completed event.
   if (event.type === "checkout.session.completed") {
     const subscription = await stripe.subscriptions.retrieve(session.subscription as string);
 
@@ -36,6 +39,7 @@ export async function POST(req: Request) {
     });
   }
 
+  // Handle invoice payment succeeded event
   if (event.type === "invoice.payment_succeeded") {
     const subscription = await stripe.subscriptions.retrieve(session.subscription as string);
 

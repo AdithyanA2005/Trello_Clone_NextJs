@@ -90,6 +90,16 @@ export const copyList = createSafeAction(CopyList, async (data: InputType): Prom
       entityType: ENTITY_TYPE.LIST,
       action: ACTION.CREATE,
     });
+
+    // Create an audit log for each card copied
+    list.cards.forEach((card) => {
+      createAuditLog({
+        entityTitle: card.title,
+        entityId: card.id,
+        entityType: ENTITY_TYPE.CARD,
+        action: ACTION.CREATE,
+      });
+    });
   } catch (error) {
     console.clear();
     console.log(error);

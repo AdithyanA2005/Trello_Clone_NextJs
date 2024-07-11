@@ -44,7 +44,6 @@ export function CardModal() {
           {!cardData ? <Actions.Skeleton /> : <Actions data={cardData} />}
         </div>
       </DialogContent>
-      <DialogClose className="t top-2" />
     </Dialog>
   );
 }

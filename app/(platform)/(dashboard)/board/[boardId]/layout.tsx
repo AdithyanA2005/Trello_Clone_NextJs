@@ -35,8 +35,10 @@ export default async function BoardIdLayout({ children, params }: { children: Re
 
   return (
     <div
-      style={{ backgroundImage: `url(${board.imageFullUrl})` }}
       className="relative h-full bg-cover bg-center bg-no-repeat"
+      style={{
+        backgroundImage: `url(${board.imageFullUrl}), linear-gradient(to bottom right, #38bdf8, #3b82f6, #ec4899)`,
+      }}
     >
       <BoardNavbar board={board} />
       <div className="absolute inset-0 bg-black/10" />

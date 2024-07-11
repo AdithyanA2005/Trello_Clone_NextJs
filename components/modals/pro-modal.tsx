@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import useAction from "@/hooks/useAction";
 import { useProModal } from "@/hooks/useProModal";
 import { stripeRedirect } from "@/actions/stripe-redirect";
@@ -32,11 +32,13 @@ export function ProModal() {
           <Image src="/hero.svg" alt="hero" className="object-cover" fill />
         </div>
         <div className="mx-auto space-y-6 p-6 text-neutral-700">
-          <h2 className="text-xl font-semibold">Upgrade to {siteConfig.name} Pro Today!</h2>
+          <DialogTitle className="text-xl font-semibold">Upgrade to {siteConfig.name} Pro Today!</DialogTitle>
 
-          <div className="space-y-2 pl-3">
-            <p className="text-sm font-semibold text-neutral-600">Explore the best of {siteConfig.name} </p>
-            <ul className="list-disc text-sm">
+          <div className="space-y-2">
+            <DialogDescription className="text-sm font-semibold text-neutral-600">
+              Explore the best of {siteConfig.name}
+            </DialogDescription>
+            <ul className="list-disc pl-4 text-sm">
               <li>Unlimited Boards</li>
               <li>Advanced checklists</li>
               <li>Admin and Security features</li>
